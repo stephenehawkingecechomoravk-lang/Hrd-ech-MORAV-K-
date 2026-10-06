@@ -1,6 +1,6 @@
 const OWNER="stephenehawkingecechomoravk-lang",REPO="Universal-Order-W3-Official",BRANCH="main";
 const githubUrl=`https://github.com/${OWNER}/${REPO}`;
-const apiUrl=`https://api.github.com/repos/${OWNER}/${REPO}/readme?ref=${BRANCH}`;
+const rawUrl=`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/README.md`;
 document.querySelector("#githubTop").href=githubUrl;
 document.querySelector("#githubButton").href=githubUrl;
 function renderMarkdown(md){
@@ -12,7 +12,7 @@ function renderMarkdown(md){
 }
 async function loadGitHubReadme(){
  const status=document.querySelector("#status"),content=document.querySelector("#content"),title=document.querySelector("#repoTitle");
- try{const response=await fetch(apiUrl,{headers:{"Accept":"application/vnd.github.raw+json"},cache:"no-store"});if(!response.ok)throw new Error(`GitHub API: ${response.status}`);const readme=await response.text();title.textContent="README.md";content.innerHTML=renderMarkdown(readme);status.textContent="● načteno";status.classList.add("ok")}
+ try{const response=await fetch(rawUrl,{cache:"no-store"});if(!response.ok)throw new Error(`GitHub API: ${response.status}`);const readme=await response.text();title.textContent="README.md";content.innerHTML=renderMarkdown(readme);status.textContent="● načteno";status.classList.add("ok")}
  catch(error){status.textContent="Nelze načíst";status.classList.add("error");content.innerHTML=`<h2>Obsah se nepodařilo načíst</h2><p>GitHub je stále dostupný přímo přes tlačítko výše.</p><p><a href="${githubUrl}" target="_blank" rel="noopener">Otevřít Universal-Order-W3-Official na GitHubu ↗</a></p>`;console.error(error)}
 }
 loadGitHubReadme();
