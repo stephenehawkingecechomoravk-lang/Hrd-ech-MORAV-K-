@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stephenehawkingecechomoravk-lang.github.io/Hrd-ech-MORAV-K-/sitemap.xml
